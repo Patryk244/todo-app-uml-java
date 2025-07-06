@@ -1,0 +1,8 @@
+# Plik .gitignore
+*.class
+*.log
+*.iml
+.idea/
+target/
+bin/
+*.jar
