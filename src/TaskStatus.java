@@ -1,4 +1,5 @@
 public enum TaskStatus {
     PENDING,
-    COMPLETED
+    COMPLETED,
+    DONE
 }

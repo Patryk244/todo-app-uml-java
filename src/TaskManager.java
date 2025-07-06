@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class TaskManager {
-    private List<Task> tasks;
+    private List<Task> tasks = new ArrayList<>();
     private UniqueIdGenerator idGenerator;
 
     public TaskManager(UniqueIdGenerator idGenerator) {
@@ -12,18 +13,25 @@ public class TaskManager {
 
     public void addTask(String description) {
         int genId = idGenerator.generate();
-        Task task = new Task(genId, description);
-        tasks.add(task);
+
+        tasks.add(new Task(genId, description));
     }
 
     public void removeTask(int id) {
-        for (Task i: tasks) {
+        Iterator<Task> iterator = tasks.iterator();
+        boolean found = false;
+
+        while (iterator.hasNext()) {
+            Task i = iterator.next();
             if (i.getId() == id) {
-                tasks.remove(i);
+                iterator.remove();
                 idGenerator.release(id);
-            } else {
-                System.out.println("Element not found!");
+                found = true;
+                System.out.println("Removing successful");
             }
+        }
+        if (!found) {
+            System.out.println("Element not found!");
         }
     }
 
@@ -35,5 +43,9 @@ public class TaskManager {
                 System.out.println("Element not found!");
             }
         }
+    }
+
+    public List<Task> getAllTasks() {
+        return tasks;
     }
 }
